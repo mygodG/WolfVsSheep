@@ -692,7 +692,7 @@ namespace WvS
                 }
             }
 
-            if(moveSheepGroup.Count > 1)//todo 选择错误
+            if(moveSheepGroup.Count > 1)
             {
                 Random rd = new Random();
                 int index = rd.Next(0, moveSheepGroup.Count);
