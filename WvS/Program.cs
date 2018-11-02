@@ -566,7 +566,7 @@ namespace WvS
             {
                 for (int yLoop = 0; yLoop < 5; yLoop++)
                 {
-                    if("sheep" == nextMap[xLoop,yLoop])
+                    if(nextMap[xLoop,yLoop].Contains("shep"))
                     {
                         Position sP = new Position
                         {
@@ -629,7 +629,7 @@ namespace WvS
                         }
                     case Direction.right:
                         {
-                            if (sheep.position.y == 4 || map[sheep.position.x, sheep.position.y + 1] != "      ")
+                            if (sheep.position.y == 4 || map[sheep.position.x, sheep.position.y + 1] != "     ")
                             {
                                 continue;
                             }
@@ -695,22 +695,23 @@ namespace WvS
             if(moveSheepGroup.Count > 1)//todo 选择错误
             {
                 Random rd = new Random();
-                int sheepIndex = rd.Next(0, moveSheepGroup.Count);
-                if ("invalid" != bestMovementPerSheep[sheepIndex])
+                int index = rd.Next(0, moveSheepGroup.Count);
+                int moveSheepIndex = (int)moveSheepGroup[index];
+                if ("invalid" != bestMovementPerSheep[moveSheepIndex])
                 {
-                    Sheep sheep = (Sheep)sheeps[sheepIndex];
-                    Direction moveDir = (Direction)Enum.Parse(typeof(Direction), bestMovementPerSheep[sheepIndex]);
+                    Sheep sheep = (Sheep)sheeps[moveSheepIndex];
+                    Direction moveDir = (Direction)Enum.Parse(typeof(Direction), bestMovementPerSheep[moveSheepIndex]);
                     sheep.Move(moveDir, 1);
                     moved = true;
                 }
             }
             else if(moveSheepGroup.Count == 1)
             {
-                int sheepIndex = (int)moveSheepGroup[0];
-                if ("invalid" != bestMovementPerSheep[sheepIndex])
+                int moveSheepIndex = (int)moveSheepGroup[0];
+                if ("invalid" != bestMovementPerSheep[moveSheepIndex])
                 {
-                    Sheep sheep = (Sheep)sheeps[sheepIndex];
-                    Direction moveDir = (Direction)Enum.Parse(typeof(Direction), bestMovementPerSheep[sheepIndex]);
+                    Sheep sheep = (Sheep)sheeps[moveSheepIndex];
+                    Direction moveDir = (Direction)Enum.Parse(typeof(Direction), bestMovementPerSheep[moveSheepIndex]);
                     sheep.Move(moveDir, 1);
                     moved = true;
                 }
