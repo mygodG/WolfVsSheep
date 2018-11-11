@@ -1,15 +1,13 @@
 ﻿<Properties StartupConfiguration="{6D9D796F-61A0-4176-8046-4FD47DF9F3F5}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="WvS/Program.cs">
     <Files>
-      <File FileName="WvS/Program.cs" Line="88" Column="18" />
+      <File FileName="WvS/Program.cs" Line="754" Column="13" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.WvS PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/mygodg/Documents/GitHub/WvSProject/WvS/WvS/Program.cs" relfile="WvS/Program.cs" line="671" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />

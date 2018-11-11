@@ -70,21 +70,30 @@ namespace WvS
 
     class Wolf : Unit
     {
-        public void Eat()
+        public void Eat(ArrayList sheeps, string killedSheepName)
         {
-
+            foreach (Sheep sheep in sheeps)
+            {
+                if (sheep.name == killedSheepName)
+                {
+                    sheeps.Remove(sheep);
+                    break;
+                }
+            }
         }
     }
 
     class Program
     {
+        public const string empty = "     ";
+
         static void Init2DArray(string[,] array)
         {
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 5; j++)
                 {
-                    array[i,j] = "     ";
+                    array[i,j] = empty;
                 }
             }
         }
@@ -129,6 +138,25 @@ namespace WvS
 
         static public void UnitsInit(ArrayList wolfs, ArrayList sheeps)
         {
+            Sheep sheep1 = new Sheep();
+            Sheep sheep2 = new Sheep();
+            Sheep sheep3 = new Sheep();
+            Sheep sheep4 = new Sheep();
+            Sheep sheep5 = new Sheep();
+            Sheep sheep6 = new Sheep();
+            Sheep sheep7 = new Sheep();
+            Sheep sheep8 = new Sheep();
+            Sheep sheep9 = new Sheep();
+            Sheep sheep10 = new Sheep();
+            Wolf wolf1 = new Wolf();
+            Wolf wolf2 = new Wolf();
+
+            ArrayList tempSheeps = new ArrayList{sheep1, sheep2, sheep3, sheep4, sheep5,
+                                                sheep6, sheep7, sheep8, sheep9, sheep10};
+            ArrayList tempWolfs = new ArrayList { wolf1, wolf2 };
+            sheeps.AddRange(tempSheeps);
+            wolfs.AddRange(tempWolfs);
+
             int offset = 0;
             foreach (Wolf wolf in wolfs)
             {
@@ -212,7 +240,7 @@ namespace WvS
 
         static void PreDrawNextMap(string[,] nextMap, Sheep sheep, Position nextPos)
         {
-            nextMap[sheep.position.x, sheep.position.y] = "     ";
+            nextMap[sheep.position.x, sheep.position.y] = empty;
             nextMap[nextPos.x, nextPos.y] = sheep.name;
         }
 
@@ -231,7 +259,7 @@ namespace WvS
                 {
                     case Direction.up:
                         {
-                            if(sheep.position.x == 0 || map[sheep.position.x-1, sheep.position.y] != "     ")
+                            if(sheep.position.x == 0 || map[sheep.position.x-1, sheep.position.y] != empty)
                             {
                                 directionArray.RemoveAt(index);
                                 continue;
@@ -251,7 +279,7 @@ namespace WvS
                         }
                     case Direction.down:
                         {
-                            if(sheep.position.x == 4 || map[sheep.position.x+1,sheep.position.y] != "     ")
+                            if(sheep.position.x == 4 || map[sheep.position.x+1,sheep.position.y] != empty)
                             {
                                 directionArray.RemoveAt(index);
                                 continue;
@@ -271,7 +299,7 @@ namespace WvS
                         }
                     case Direction.left:
                         {
-                            if (sheep.position.y == 0 || map[sheep.position.x, sheep.position.y-1] != "     ")
+                            if (sheep.position.y == 0 || map[sheep.position.x, sheep.position.y-1] != empty)
                             {
                                 directionArray.RemoveAt(index);
                                 continue;
@@ -291,7 +319,7 @@ namespace WvS
                         }
                     case Direction.right:
                         {
-                            if (sheep.position.y == 4 || map[sheep.position.x, sheep.position.y+1] != "     ")
+                            if (sheep.position.y == 4 || map[sheep.position.x, sheep.position.y+1] != empty)
                             {
                                 directionArray.RemoveAt(index);
                                 continue;
@@ -324,7 +352,7 @@ namespace WvS
                     return MoveResult.can_not_move;
                 }
             }
-            string destObjectName = ("eat" == action) ? "shep" : "     ";
+            string destObjectName = ("eat" == action) ? "shep" : empty;
             MoveResult errRes = ("eat" == action) ? MoveResult.no_sheep_to_eat : MoveResult.can_not_move;
             switch (direction)
             {
@@ -418,7 +446,8 @@ namespace WvS
                     if("eat" == action)
                     {
                         string killedSheepName = GetKilledSheepNameByPos(sheeps, killedSheepPos);
-                        KillSheep(sheeps, killedSheepName);
+                        //KillSheep(sheeps, killedSheepName); 
+                        wolf.Eat(sheeps, killedSheepName);
                     }
                     UpdateMap(map, sheeps, wolfs);
                     return true;
@@ -433,7 +462,7 @@ namespace WvS
             {
                 return true;
             }
-            else if(map[sheepPos.x-1,sheepPos.y] !=  "     ")
+            else if(map[sheepPos.x-1,sheepPos.y] != empty)
             {
                 return true;
             }
@@ -453,7 +482,7 @@ namespace WvS
             {
                 return true;
             }
-            else if (map[sheepPos.x + 1, sheepPos.y] != "     ")
+            else if (map[sheepPos.x + 1, sheepPos.y] != empty)
             {
                 return true;
             }
@@ -473,7 +502,7 @@ namespace WvS
             {
                 return true;
             }
-            else if (map[sheepPos.x, sheepPos.y-1] != "     ")
+            else if (map[sheepPos.x, sheepPos.y-1] != empty)
             {
                 return true;
             }
@@ -493,7 +522,7 @@ namespace WvS
             {
                 return true;
             }
-            else if (map[sheepPos.x, sheepPos.y+1] != "     ")
+            else if (map[sheepPos.x, sheepPos.y+1] != empty)
             {
                 return true;
             }
@@ -597,7 +626,7 @@ namespace WvS
                 {
                     case Direction.up:
                         {
-                            if (sheep.position.x == 0 || map[sheep.position.x - 1, sheep.position.y] != "     ")
+                            if (sheep.position.x == 0 || map[sheep.position.x - 1, sheep.position.y] != empty)
                             {
                                 continue;
                             }
@@ -608,7 +637,7 @@ namespace WvS
                         }
                     case Direction.down:
                         {
-                            if (sheep.position.x == 4 || map[sheep.position.x + 1, sheep.position.y] != "     ")
+                            if (sheep.position.x == 4 || map[sheep.position.x + 1, sheep.position.y] != empty)
                             {
                                 continue;
                             }
@@ -619,7 +648,7 @@ namespace WvS
                         }
                     case Direction.left:
                         {
-                            if (sheep.position.y == 0 || map[sheep.position.x, sheep.position.y - 1] != "     ")
+                            if (sheep.position.y == 0 || map[sheep.position.x, sheep.position.y - 1] != empty)
                             {
                                 continue;
                             }
@@ -629,7 +658,7 @@ namespace WvS
                         }
                     case Direction.right:
                         {
-                            if (sheep.position.y == 4 || map[sheep.position.x, sheep.position.y + 1] != "     ")
+                            if (sheep.position.y == 4 || map[sheep.position.x, sheep.position.y + 1] != empty)
                             {
                                 continue;
                             }
@@ -722,6 +751,7 @@ namespace WvS
 
         static void ExtreamProc(string[,] map, ArrayList targetSheeps, ArrayList safeSheeps, ref bool moved)
         {
+
         }
 
         static bool MoveSheep(ArrayList sheeps, string[,] map, Level gameLv)
@@ -777,22 +807,8 @@ namespace WvS
             string[,] map = new string[5, 5];
             Program.Init2DArray(map);
 
-            Sheep sheep1 = new Sheep();
-            Sheep sheep2 = new Sheep();
-            Sheep sheep3 = new Sheep();
-            Sheep sheep4 = new Sheep();
-            Sheep sheep5 = new Sheep();
-            Sheep sheep6 = new Sheep();
-            Sheep sheep7 = new Sheep();
-            Sheep sheep8 = new Sheep();
-            Sheep sheep9 = new Sheep();
-            Sheep sheep10 = new Sheep();
-            Wolf wolf1 = new Wolf();
-            Wolf wolf2 = new Wolf();
-
-            ArrayList sheeps = new ArrayList {sheep1, sheep2, sheep3, sheep4, sheep5,
-                                              sheep6, sheep7, sheep8, sheep9, sheep10};
-            ArrayList wolfs = new ArrayList{wolf1, wolf2};
+            ArrayList wolfs = new ArrayList();
+            ArrayList sheeps = new ArrayList();
             UnitsInit(wolfs, sheeps);
 
             Level lv = ChooseGameLevel();
